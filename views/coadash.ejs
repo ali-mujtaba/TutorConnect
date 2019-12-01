@@ -1,0 +1,148 @@
+<% include partials/header1 %>
+
+
+      <div class="jumbotron p-5 mt-5">
+      <h1 class = "text-center display-2"> Hi <%=info.Name%></h1>
+      <p class="lead text-center display-4">Welcome to Tutor Connect</p>
+      <hr class="my-4">
+      <p class = "text-center alert alert-info">Tutor Connect will help you find the best teachers and students near you. You can reset your default preferences to see
+      new home tutors and coachings near you. Best of luck !
+      </p>
+      </div>
+      
+      <div class="row">
+        <div class="col-3 bg-light">
+          <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link active" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="true">Profile</a>
+            <a class="nav-link" id="v-pills-preferences-tab" data-toggle="pill" href="#v-pills-preferences" role="tab" aria-controls="v-pills-preferences" aria-selected="false">Preferences</a>
+            <a class="nav-link" id="v-pills-reset-tab" data-toggle="pill" href="#v-pills-reset" role="tab" aria-controls="v-pills-reset" aria-selected="false">Reset Preferences</a>
+            <a class="nav-link" id="v-pills-delete-tab" data-toggle="pill" href="#v-pills-delete" role="tab" aria-controls="v-pills-delete" aria-selected="false">Delete Account</a>
+          </div>
+        </div>
+        <div class="col-9">
+          <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+              
+              <table class="table table-borderless table-striped table-hover">
+                <thead class = "thead-dark">
+                  <tr>
+                    <th scope="col">Basic Details</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Name</th>
+                    <td><%=info.Name %></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Email</th>
+                    <td><%= info.Email %></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">City</th>
+                    <td><%= info.City %></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Contact</th>
+                    <td><%= info.Contact %></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Establishment</th>
+                    <td><%= info.Establishment %></td>
+                  </tr>
+                 
+                </tbody>
+            </table>
+            </div>
+            <div class="tab-pane fade" id="v-pills-preferences" role="tabpanel" aria-labelledby="v-pills-preferences-tab">
+              
+              <table class="table table-borderless table-striped table-hover">
+                  <thead class = "thead-dark">
+                    <tr>
+                      <th scope="col"># Course</th>
+                      <th scope="col">Class</th>
+                      <th scope="col">Subject</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% for(var i=0;i<courses.length;i++){ %>
+                      <tr>
+                        <th> Course <%=i+1%>: </th>
+                        <td> <%=courses[i].class%> </td>
+                        <td> <%=courses[i].subject%> </td>
+                      </tr>
+                    <%}%>
+                  </tbody>
+              </table>
+            </div>
+
+ 
+            <div class="tab-pane fade" id="v-pills-reset" role="tabpanel" aria-labelledby="v-pills-reset-tab">
+              <div class="alert alert-warning" role="alert">
+                Are you sure you want to change your preferences? 
+              </div>
+              <a href="/coaching/<%=info.C_ID%>/resetprefs" class="btn btn-outline-warning">Reset</a>
+            </div>
+            <div class="tab-pane fade" id="v-pills-delete" role="tabpanel" aria-labelledby="v-pills-delete-tab">
+              <div class="alert alert-danger" role="alert">
+                Clicking the button below will remove your account permanently. Do you really want to continue ?
+              </div>
+              <a href="/coaching/<%=info.C_ID%>/delete" class="btn btn-outline-danger">Delete</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!--<div class="container">-->
+    <!--  <h1> Hi <%=info.Name%></h1>-->
+    <!--  <label for="name"> Name </label>-->
+    <!--  <div class="border col-lg-6 infobox" id="fname"> <%=info.Name%> </div>-->
+    <!--  <label for="email"> Email </label>-->
+    <!--  <div class="border col-lg-6 infobox" id="email"> <%=info.Email%> </div>-->
+    <!--  <label for="city col-lg-3"> City </label>-->
+    <!--  <div class="border col-lg-6 infobox" id="city"> <%=info.City%> </div>-->
+    <!--  <label for="contact"> Contact </label>-->
+    <!--  <div class="border col-lg-6 infobox" id="contact"> <%=info.Contact%> </div>-->
+    <!--  <label for="establishment"> Establishment </label>-->
+    <!--  <div class="border col-lg-6 infobox" id="establishment"> <%=info.Establishment%> </div>-->
+
+    <!--  <div class="preferences">-->
+    <!--    <table>-->
+    <!--      <tr>-->
+    <!--        <td> </td>-->
+    <!--        <td> <h5> Class </h5> </td>-->
+    <!--        <td> <h5> Subject </h5> </td>-->
+    <!--      </tr>-->
+    <!--      <% for(var i=0;i<courses.length;i++){ %>-->
+    <!--        <tr>-->
+    <!--          <td> Course <%=i+1%>: </td>-->
+    <!--          <td class="border"> <%=courses[i].class%> </td>-->
+    <!--          <td class="border"> <%=courses[i].subject%> </td>-->
+    <!--        </tr>-->
+    <!--      <%}%>-->
+
+    <!--    </table>-->
+    <!--  </div>-->
+    <!--</div>-->
+    
+    <style type="text/css">
+      .container
+      {
+        margin: auto;
+        border: 2px solid gray;
+        padding: 20px;
+        max-width: 768px;
+      }
+      label
+      {
+        margin-top: 5px;
+      }
+      .infobox
+      {
+        display:inline;
+      }
+    </style>
+    
+<% include partials/footer1 %>
+

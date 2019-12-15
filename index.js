@@ -2,14 +2,24 @@ var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
 var mysql = require("mysql");
+var dotenv = require("dotenv");
+dotenv.config();
+
+const DB_host = process.env.DATABASE_HOST || 'localhost';
+const DB_port = process.env.DATABASE_PORT || 3306;
+const DB_user = process.env.DATABASE_USER || 'tutorconnect';
+const DB_pass = process.env.DATABASE_PASS || 'abcd1234';
+const DB_name = process.env.DATABASE_NAME || 'tutorconnect';
+
 var pool  = mysql.createPool({
   connectionLimit : 10,
-  host            : 'localhost',
-  user            : 'tutorconnect',
-  password        : 'aai@CSE2019',
-  database        : 'tutorconnect'
+  host            : DB_host,
+  port            : DB_port,
+  user            : DB_user,
+  password        : DB_pass,
+  database        : DB_name,
+  multipleStatements: true
 });
-
 
 
 
@@ -140,7 +150,10 @@ app.post("/:usertype/register",function(req,res)
         var sid;
         pool.query(qrystr, function(error,results,fields)
         {
-            if(error) throw error;
+            if(error){
+                console.log(error);
+                res.redirect("/");
+            }
             else
             {
                 console.log(results);
@@ -193,6 +206,7 @@ app.post("/:usertype/register",function(req,res)
         pool.query(qrystr, function (error, results, fields)
         {
             if (error){
+                console.log(error);
                 res.send("<h3> Already A User </h3>");
             }
 
@@ -473,7 +487,7 @@ app.get("/:usertype/:userid/delete",function(req,res)
 
    if(userType == 'tutor')
    {
-       var qrystr = "DELETE FROM T_Courses where T_ID="+userId;
+       var qrystr = "DELETE FROM T_Courses where T_ID="+userId+";\ndelete from CoursePool where Course_ID not in (select distinct Course_ID from C_Courses) AND Course_ID not in (select distinct Course_ID from T_Courses);";
        pool.query(qrystr,function(error, results, fields)
        {
             if (error) throw error;
@@ -490,7 +504,7 @@ app.get("/:usertype/:userid/delete",function(req,res)
    }
    if(userType == 'coaching')
    {
-       var qrystr = "DELETE FROM C_Courses where C_ID="+userId;
+       var qrystr = "DELETE FROM C_Courses where C_ID="+userId+";\ndelete from CoursePool where Course_ID not in (select distinct Course_ID from C_Courses) AND Course_ID not in (select distinct Course_ID from T_Courses);";
        pool.query(qrystr,function(error, results, fields)
        {
             if (error) throw error;
@@ -528,11 +542,11 @@ app.get("/:usertype/:userid/resetprefs",function(req,res)
 
   if(userType == 'tutor')
   {
-      var qrystr = "Delete FROM T_Courses where T_ID="+userId;
+      var qrystr = "Delete FROM T_Courses where T_ID="+userId+";delete from CoursePool where Course_ID not in (select distinct Course_ID from C_Courses) AND Course_ID not in (select distinct Course_ID from T_Courses);";
       console.log(qrystr);
       pool.query(qrystr,function(error, results, fields)
       {
-          if(error) throw error;
+          if(error) console.log(error) ;
           else
           console.log("Reset tutor preferences");
           res.redirect("/tutor/"+userId+"/defaultPreferences");
@@ -541,7 +555,7 @@ app.get("/:usertype/:userid/resetprefs",function(req,res)
 
   if(userType == 'coaching')
   {
-      var qrystr = "Delete FROM C_Courses where C_Courses.C_ID="+userId;
+      var qrystr = "Delete FROM C_Courses where C_Courses.C_ID="+userId+";delete from CoursePool where Course_ID not in (select distinct Course_ID from C_Courses) AND Course_ID not in (select distinct Course_ID from T_Courses);";
       console.log(qrystr);
       pool.query(qrystr,function(error, results, fields)
       {

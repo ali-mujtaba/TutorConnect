@@ -1,0 +1,145 @@
+<% include partials/header1 %>
+
+    
+      <div class="jumbotron p-5 mt-5">
+      <h1 class = "text-center display-2"> Hi <%=info.F_Name%></h1>
+      <p class="lead text-center display-4">Welcome to Tutor Connect</p>
+      <hr class="my-4">
+      <p class = "text-center alert alert-info">Tutor Connect will help you find the best home tutors and coachings near you. You can reset your default preferences to see
+      new home tutors and coachings near you. Best of luck !
+      </p>
+      </div>
+      
+      <div class="row">
+        <div class="col-3 bg-light">
+          <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link active" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="true">Profile</a>
+            <a class="nav-link" id="v-pills-preferences-tab" data-toggle="pill" href="#v-pills-preferences" role="tab" aria-controls="v-pills-preferences" aria-selected="false">Preferences</a>
+            <a class="nav-link" id="v-pills-tutors-tab" data-toggle="pill" href="#v-pills-tutors" role="tab" aria-controls="v-pills-tutors" aria-selected="false">Tutors Available</a>
+            <a class="nav-link" id="v-pills-coachings-tab" data-toggle="pill" href="#v-pills-coachings" role="tab" aria-controls="v-pills-coachings" aria-selected="false">Coachings Available</a>
+            <a class="nav-link" id="v-pills-reset-tab" data-toggle="pill" href="#v-pills-reset" role="tab" aria-controls="v-pills-reset" aria-selected="false">Reset Preferences</a>
+            <a class="nav-link" id="v-pills-delete-tab" data-toggle="pill" href="#v-pills-delete" role="tab" aria-controls="v-pills-delete" aria-selected="false">Delete Account</a>
+          </div>
+        </div>
+        <div class="col-9">
+          <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+              
+              <table class="table table-borderless table-striped table-hover">
+                <thead class = "thead-dark">
+                  <tr>
+                    <th scope="col">Basic Details</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Name</th>
+                    <td><%=info.F_Name%> <%=info.L_Name%></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Email</th>
+                    <td><%= info.Email %></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">City</th>
+                    <td><%= info.City %></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Contact</th>
+                    <td><%= info.Contact %></td>
+                  </tr>
+                </tbody>
+            </table>
+            </div>
+            <div class="tab-pane fade" id="v-pills-preferences" role="tabpanel" aria-labelledby="v-pills-preferences-tab">
+              
+              <table class="table table-borderless table-striped table-hover">
+                  <thead class = "thead-dark">
+                    <tr>
+                      <th scope="col"># Course</th>
+                      <th scope="col">Class</th>
+                      <th scope="col">Subject</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% for(var i=0;i<courses.length;i++){ %>
+                      <tr>
+                        <th> Course <%=i+1%>: </th>
+                        <td> <%=courses[i].Class%> </td>
+                        <td> <%=courses[i].Subject%> </td>
+                      </tr>
+                    <%}%>
+                  </tbody>
+              </table>
+            </div>
+            <div class="tab-pane fade" id="v-pills-tutors" role="tabpanel" aria-labelledby="v-pills-tutors-tab">
+           
+              <% for (var i = 0; i < tutors.length; i++){ %>
+                  <div class="card mb-3">
+                    <h4 class="card-header bg-dark text-white"><%=tutors[i].F_Name%>  <%=tutors[i].L_Name%></h4>
+                    <div class="card-body">
+                      <h5 class="card-title"><strong><%=tutors[i].Qualification %></strong></h5>
+                      <p class="card-text">Has a teaching experience of <strong><%=tutors[i].Experience %></strong> years. He currently lives in <strong><%=tutors[i].City%></strong>. The course taught by him is 
+                      <br><strong>Class : <%= tutors[i].Class %> </strong>   <strong>Subject : <%= tutors[i].Subject %> </strong></br>
+                      Contact details are as follows
+                      <br><strong>Email : <%=tutors[i].Email%></strong></br>
+                      <strong>Contact : <%=tutors[i].Contact%></strong>
+                      </p>
+                    </div>
+                  </div>
+              <% } %>    
+              
+            </div>
+            <div class="tab-pane fade" id="v-pills-coachings" role="tabpanel" aria-labelledby="v-pills-coachings-tab">
+              
+              <% for (var i = 0; i < coachings.length; i++){ %>
+                  <div class="card mb-3">
+                    <h4 class="card-header bg-dark text-white"><%=coachings[i].Name%></h4>
+                    <div class="card-body">
+                      <h5 class="card-title"><strong><%=coachings[i].Qualification %></strong></h5>
+                      <p class="card-text">It was established in the year <strong><%=coachings[i].Establishment%></strong>. It currently has a center in <strong><%=coachings[i].City%></strong>. The course taught by it is 
+                      <br><strong>Class : <%= coachings[i].Class %> </strong>   <strong>Subject : <%= coachings[i].Subject %> </strong></br>
+                      Contact details are as follows
+                      <br><strong>Email : <%=coachings[i].Email%></strong></br>
+                      <strong>Contact : <%=coachings[i].Contact%></strong>
+                      </p>
+                    </div>
+                  </div>
+              <% } %>  
+            </div>
+            <div class="tab-pane fade" id="v-pills-reset" role="tabpanel" aria-labelledby="v-pills-reset-tab">
+              <div class="alert alert-warning" role="alert">
+                Are you sure you want to change your preferences? 
+              </div>
+              <a href="/student/<%=info.S_ID%>/resetprefs" class="btn btn-outline-warning">Reset</a>
+            </div>
+            <div class="tab-pane fade" id="v-pills-delete" role="tabpanel" aria-labelledby="v-pills-delete-tab">
+              <div class="alert alert-danger" role="alert">
+                Clicking the button below will remove your account permanently. Do you really want to continue ?
+              </div>
+              <a href="/student/<%=info.S_ID%>/delete" class="btn btn-outline-danger">Delete</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    <style type="text/css">
+      .container
+      {
+        margin: auto;
+        border: 2px solid gray;
+        padding: 20px;
+        max-width: 768px;
+      }
+      label
+      {
+        margin-top: 5px;
+      }
+      .infobox
+      {
+        display:inline;
+      }
+    </style>
+
+<% include partials/footer1 %>

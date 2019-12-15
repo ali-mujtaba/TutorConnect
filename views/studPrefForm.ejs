@@ -1,0 +1,94 @@
+<% include partials/header %>
+<script type = "text/javascript">
+document.querySelector("title").innerHTML = 'Preferences';
+</script>
+  <div class="container-fluid form">
+    <h3> Course Preferences </h3>
+    
+    <form class="form-inline" action="/student/<%=studentId%>/defaultPreferences" method="post">
+      <div class="prefList">
+        <div class="preferences col-lg-12">
+          <div class="input-group mb-3 col-lg-5">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="inputGroupSelect01">Class</label>
+            </div>
+            <select class="custom-select " name="class" id="inputGroupSelect01">
+              <option selected>Select</option>
+              <% classes.forEach(function(c){ %>
+                  <option value="<%= c.class %>"> <%= c.class%> </option>
+              <% }); %>
+            </select>
+          </div>
+          <div class="input-group mb-3 col-lg-6">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="inputGroupSelect01">Subject</label>
+            </div>
+            <select class="custom-select" name="subject" id="inputGroupSelect01">
+              <option selected>Select</option>
+              <% subjects.forEach(function(s){ %>
+                  <option value="<%= s.subject %>"> <%= s.subject%> </option>
+              <% }); %>
+            </select>
+
+          </div>
+          <div class="addPref">
+            <div class="input-group col-lg-1">
+              <span>
+                <button type="button" class="btn btn-darkbtn-sm"> <span> <i class="fas fa-plus-circle"></i> </span> </button>
+               </span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+
+      <button type="submit" class="btn btn-primary"> Register </button>
+    </form>
+
+  </div>
+<style rel="stylesheet" type="text/css">
+  .form
+  {
+    max-width:600px;
+    margin: auto;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    border: 3px solid rgba(211,211,211,0.5);
+  }
+  .preferences
+  {
+    display: inline-flex;
+  }
+  button[type="submit"]
+  {
+    margin: auto;
+  }
+  h3
+  {
+    margin: 20px;
+    text-align: center;
+  }
+
+</style>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script type="text/javascript">
+  var unitPref = $(".prefList").html();
+$(".addPref").on("click",function()
+{
+    $(".prefList").append(unitPref);
+    $(".addPref").last().remove();
+});
+
+$( "select" ).on("click",function()
+{
+  $(this).attr("selected");
+});
+
+</script>
+
+<% include partials/footer %>
